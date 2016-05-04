@@ -6,6 +6,8 @@ This image is based on [Alpine Linux][ac11addb] and [socat][022939b2]
 
   [ac11addb]: https://www.alpinelinux.org/ "Alpine Linux"
   [022939b2]: http://www.dest-unreach.org/socat/ "socat"
+  
+When you behinde a proxy you need to add the env variable to the builds
 
 ## docker steps
 
@@ -17,7 +19,8 @@ docker run -it --rm --net host mysocat
 ## openshift
 
 oc new-project tcplogger  
-oc new-app https://github.com/git001/socat-tcp-listen.git --name='tcplogger'    
+oc new-app https://github.com/git001/socat-tcp-listen.git --name='tcplogger'  
+oc env bc tcplogger HTTP_PROXY=<YOUR_PROXY>  
 
 To be able to use this service you will need to add this to your project.
 
