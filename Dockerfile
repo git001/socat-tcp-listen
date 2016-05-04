@@ -18,5 +18,5 @@ EXPOSE 8514/tcp
 USER default
 
 ENTRYPOINT ["/usr/bin/socat"]
-CMD ["-ls","-dddd","-u","tcp4-listen:8514,fork","FD:STDOUT"]
+CMD ["-ls","-dddd","-u","tcp4-listen:8514,fork","STDOUT"]
 #CMD ["/bin/sh","-c","while true; do echo hello world; sleep 30; done"]
