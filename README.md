@@ -1,23 +1,23 @@
 # Syslog docker image
 
-Due to the fact that most common syslog server (rsyslog, syslog-ng,...) was not designed for docker or paas I decided to create a small (~5 MB) image which receives sylsog messages and write it out to stdout.
+Due to the fact that some server (squid,...) was not designed for docker or paas I decided to create a small (~5 MB) image which receives tcp messages and write it out to stdout.
 
-This image is based on [Alpine Linux][ac11addb] and [socklog][022939b2]
+This image is based on [Alpine Linux][ac11addb] and [socat][022939b2]
 
   [ac11addb]: https://www.alpinelinux.org/ "Alpine Linux"
-  [022939b2]: http://smarden.org/socklog/socklog.8.html "socklog"
+  [022939b2]: http://www.dest-unreach.org/socat/ "socat"
 
 ## docker steps
 
-git clone https://github.com/git001/alpine-socklog.git  
-cd alpine-socklog  
-docker build --rm -t mysocklog .  
-docker run -it --rm --net host mysocklog  
+git clone https://github.com/git001/socat-tcp-listen.git  
+cd socat-tcp-listen  
+docker build --rm -t mysocat .  
+docker run -it --rm --net host mysocat  
 
 ## openshift
 
-oc new-project syslogger  
-oc new-app https://github.com/git001/alpine-socklog.git  
+oc new-project tcplogger  
+oc new-app https://github.com/git001/socat-tcp-listen.git  
 
 To be able to use this service you will need to add this to your project.
 
