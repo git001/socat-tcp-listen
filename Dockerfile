@@ -9,9 +9,12 @@ LABEL io.openshift.tags tcplog,socat \
 
 ENV HTTP_PROXY=${HTTP_PROXY}
 
+# https://wiki.alpinelinux.org/wiki/Setting_the_timezone
 RUN set -x \
-    && apk add --no-cache --update \
-    socat \
+    && apk add --no-cache --update socat tzdata \
+    && cp /usr/share/zoneinfo/UTC /etc/localtime \
+    && echo "UTC" >  /etc/timezone \
+    && apk del tzdata \
     && rm -rf /var/cache/apk/*
 
 EXPOSE 8514/tcp
