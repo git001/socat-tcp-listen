@@ -17,7 +17,7 @@ docker run -it --rm --net host mysocat
 ## openshift
 
 oc new-project tcplogger  
-oc new-app https://github.com/git001/socat-tcp-listen.git  
+oc new-app https://github.com/git001/socat-tcp-listen.git --name='tcplogger'    
 
 To be able to use this service you will need to add this to your project.
 
