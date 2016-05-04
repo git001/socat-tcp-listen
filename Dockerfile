@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:latest
+FROM alpine:latest
 
 # Openshift labels
 # https://docs.openshift.com/enterprise/3.1/creating_images/metadata.html
@@ -17,5 +17,4 @@ EXPOSE 8514/tcp
 USER default
 
 ENTRYPOINT ["/usr/sbin/socat"]
-
-CMD ["tcp4-listen:8514","-"]
+CMD ["tcp4-listen:8514,fork","-"]
