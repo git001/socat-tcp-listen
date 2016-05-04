@@ -1,5 +1,4 @@
-#FROM alpine:latest
-FROM rhel7:latest
+FROM alpine:latest
 
 # Openshift labels
 # https://docs.openshift.com/enterprise/3.1/creating_images/metadata.html
@@ -8,6 +7,7 @@ LABEL io.openshift.tags tcplog,socat \
       io.k8s.description This Image receives tcp messages on port 8514 \
       io.openshift.expose-services 8514/tcp
 
+ENV HTTP_PROXY=${HTTP_PROXY}
 
 RUN set -x \
     && apk add --no-cache --update \
