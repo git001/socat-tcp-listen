@@ -7,7 +7,7 @@ This image is based on [Alpine Linux][ac11addb] and [socat][022939b2]
   [ac11addb]: https://www.alpinelinux.org/ "Alpine Linux"
   [022939b2]: http://www.dest-unreach.org/socat/ "socat"
   
-When you behinde a proxy you need to add the env variable to the builds
+When you behind a proxy you need to add the env variable to the builds
 
 ## docker steps
 
@@ -20,50 +20,17 @@ docker run -it --rm --net host mysocat
 
 oc new-project tcplogger  
 oc new-app https://github.com/git001/socat-tcp-listen.git --name='tcplogger'  
-oc env bc tcplogger HTTP_PROXY=<YOUR_PROXY>  
 
 To be able to use this service you will need to add this to your project.
 
-This is the shell output of a example pods
-
-``` oc rsh alpine-socklog-1-kpf5b sh```
+This is the shell output of a squid pods
 
 ```
-/ $ env|sort
-ALPINE_SOCKLOG_PORT=udp://172.30.104.73:8514
-ALPINE_SOCKLOG_PORT_8514_UDP=udp://172.30.104.73:8514
-ALPINE_SOCKLOG_PORT_8514_UDP_ADDR=172.30.104.73
-ALPINE_SOCKLOG_PORT_8514_UDP_PORT=8514
-ALPINE_SOCKLOG_PORT_8514_UDP_PROTO=udp
-ALPINE_SOCKLOG_SERVICE_HOST=172.30.104.73
-ALPINE_SOCKLOG_SERVICE_PORT=8514
-ALPINE_SOCKLOG_SERVICE_PORT_8514_UDP=8514
-HOME=/
-HOSTNAME=alpine-socklog-1-kpf5b
-KUBERNETES_PORT=tcp://172.30.0.1:443
-KUBERNETES_PORT_443_TCP=tcp://172.30.0.1:443
-KUBERNETES_PORT_443_TCP_ADDR=172.30.0.1
-KUBERNETES_PORT_443_TCP_PORT=443
-KUBERNETES_PORT_443_TCP_PROTO=tcp
-KUBERNETES_PORT_53_TCP=tcp://172.30.0.1:53
-KUBERNETES_PORT_53_TCP_ADDR=172.30.0.1
-KUBERNETES_PORT_53_TCP_PORT=53
-KUBERNETES_PORT_53_TCP_PROTO=tcp
-KUBERNETES_PORT_53_UDP=udp://172.30.0.1:53
-KUBERNETES_PORT_53_UDP_ADDR=172.30.0.1
-KUBERNETES_PORT_53_UDP_PORT=53
-KUBERNETES_PORT_53_UDP_PROTO=udp
-KUBERNETES_SERVICE_HOST=172.30.0.1
-KUBERNETES_SERVICE_PORT=443
-KUBERNETES_SERVICE_PORT_DNS=53
-KUBERNETES_SERVICE_PORT_DNS_TCP=53
-KUBERNETES_SERVICE_PORT_HTTPS=443
-OPENSHIFT_BUILD_COMMIT=93527d557f9cb52310ca709e4baff9dcd76580f7
-OPENSHIFT_BUILD_NAME=alpine-socklog-1
-OPENSHIFT_BUILD_NAMESPACE=syslogger
-OPENSHIFT_BUILD_SOURCE=https://github.com/git001/alpine-socklog.git
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-PWD=/
-SHLVL=1
-/$
+oc logs -f tcplogger-7-xq14p |awk '{print strftime("%Y-%m-%d %H:%M:%S ",$1) $0}'
+2016-05-04 12:31:30 1462357890.571     18 10.1.3.1 TCP_MISS/302 800 GET http://google.com/ - FIRSTUP_PARENT/<IP> text/html
+2016-05-04 12:31:30 1462357890.609     37 10.1.3.1 TCP_MISS/200 12518 GET http://www.google.com.sg/? - FIRSTUP_PARENT/<IP> text/html
+2016-05-04 12:32:11 1462357931.063      4 10.1.3.1 TCP_MISS/302 800 GET http://google.com/ - FIRSTUP_PARENT/<IP> text/html
+2016-05-04 12:32:11 1462357931.092     28 10.1.3.1 TCP_MISS/200 12486 GET http://www.google.com.sg/? - FIRSTUP_PARENT/<IP> text/html
+2016-05-04 12:58:33 1462359513.104    151 10.1.3.1 TCP_MISS/200 4672 CONNECT google.com:443 - FIRSTUP_PARENT/<IP> -
+2016-05-04 12:58:33 1462359513.104     47 10.1.3.1 TCP_MISS/200 23215 CONNECT www.google.com.sg:443 - FIRSTUP_PARENT/<IP> -
 ```
