@@ -17,6 +17,6 @@ RUN set -x \
 EXPOSE 8514/tcp
 USER default
 
-#ENTRYPOINT ["/usr/sbin/socat"]
-#CMD ["tcp4-listen:8514,fork","-"]
-CMD ["/bin/sh","-c","while true; do echo hello world; sleep 30; done"]
+ENTRYPOINT ["/usr/bin/socat"]
+CMD ["tcp4-listen:8514,fork","-"]
+#CMD ["/bin/sh","-c","while true; do echo hello world; sleep 30; done"]
