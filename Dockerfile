@@ -1,4 +1,5 @@
-FROM alpine:latest
+#FROM alpine:latest
+FROM rhel7:latest
 
 # Openshift labels
 # https://docs.openshift.com/enterprise/3.1/creating_images/metadata.html
