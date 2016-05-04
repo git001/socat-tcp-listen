@@ -1,4 +1,4 @@
-# Syslog docker image
+# TCPlog docker image
 
 Due to the fact that some server (squid,...) was not designed for docker or paas I decided to create a small (~5 MB) image which receives tcp messages and write it out to stdout.
 
